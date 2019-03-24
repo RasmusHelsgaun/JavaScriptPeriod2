@@ -87,3 +87,79 @@ logger.stream = {
 
 module.exports=logger;
 ```
+```javascript
+var debug = require('debug')('loggingdemo:app');
+const appLogger = require('./logger-setup')
+...
+app.use(require("morgan")("combined", { stream: appLogger.stream }));
+appLogger.log('error', "127.0.0.1 - there's no place like home");
+appLogger.log('warn', "127.0.0.1 - there's no place like home");
+appLogger.log('info', "127.0.0.1 - there's no place like home");
+appLogger.log('verbose', "127.0.0.1 - there's no place like home");
+appLogger.log('debug', "127.0.0.1 - there's no place like home");
+
+debug("Before middlewares")
+```
+These would both make an output in the terminal, but log would also log to a given file
+
+## Explain, using relevant examples, concepts related to testing a REST-API using Node/JavaScript + relevant packages
+To test a in Node/JS you can make use of Mocha and chai, and for rest purposes you make use of a http handler like fetch
+```javascript
+const expect = require('chai').expect;
+const calc = require('../calc')
+const fetch = require('node-fetch')
+const PORT = 2345
+const URL = `http://localhost:${PORT}/api/calc/add/`
+let server
+const filterDir = require('../module')
+const fs = require('fs-extra')
+
+describe("Calculator API", function () {
+
+    describe("Testing the basic Calc API", function () {
+        it("5 + 2 should return 7", function () {
+            const result = calc.add(5, 2)
+            expect(result).to.be.equal(7)
+        })
+    })
+
+    describe("Testing the REST Calc API", function () {
+        before(function (done) {
+            calc.calcServer(PORT, function (s) {
+                server = s
+                done()
+            })
+        })
+        after(function () {
+            server.close()
+        })
+        it("Add 4 + 3 should return 7", async function () {
+            const json = await fetch(URL + "4/3").then(r => r.json())
+            expect(json.result).to.be.equal(7)
+        })
+    })
+
+    describe("Testing makeitmodular", function () {
+        before(function() {
+            fs.mkdirSync("./1234test5678")
+            fs.writeFileSync("./1234test5678/1.js")
+            fs.writeFileSync("./1234test5678/2.js")
+            fs.writeFileSync("./1234test5678/3.js")
+        })
+
+        it("Should return a list of length 4 and not throw an error", function (done) {
+            filterDir("./1234test5678", "js", (err, data) => {
+                if (err) {
+                    done(err)
+                }
+                console.log(data.join("\n"));
+                done()
+            })
+        })
+
+        after(function() {
+            fs.removeSync("./1234test5678")
+        })
+    })
+})
+```
