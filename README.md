@@ -21,9 +21,11 @@ There are 2 potential ways of doing this.
 Either you implement a cluster module to help you doing this, or you run several instances of the node application, which can either be run on a multi-core system or across different machines.
 
 **Cluster**
+
 A single instance of Node.js runs in a single thread. To take advantage of multi-core systems, the user will sometimes want to launch a cluster of Node.js processes to handle the load. The cluster module allows easy creation of child processes that all share server ports.
 
 **Sharding**
+
 We can split the application into multiple instances where each instance is responsible for only a part of the application’s data. This strategy is often named **horizontal partitioning**, or **sharding**, in databases. Data partitioning requires a lookup step before each operation to determine which instance of the application to use. For example, maybe we want to partition our users based on their country or language. We need to do a lookup of that information first.
 
 ## Explain briefly how to deploy a Node/Express application including how to solve the following deployment problems:
@@ -31,6 +33,7 @@ To deploy the application, you would first have to download Node.js, and have a 
 If you download the project from e.g GitHub, you have to remember to run npm install to get all of the node modules.
 Now you can run the node project with npm start or node "name of node file", but if it crashes you have to restart everything manually.
 * **Ensure that you Node-process restarts after a (potential) exception that closed the application**
+
   For this you can use a process manager like PM2, forever and StrongLoop process manager
 * **Ensure that you Node-process restarts after a server (Ubuntu) restart**
 * **Ensure that you can take advantage of a multi-core system**
