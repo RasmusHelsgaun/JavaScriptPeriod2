@@ -230,7 +230,7 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 ```
-```html
+```ejs
 <!DOCTYPE html>
 <html>
   <head>
