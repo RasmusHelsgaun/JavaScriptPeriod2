@@ -172,3 +172,81 @@ Middleware functions are functions that have access to the request object (req),
 * Make changes to the request and the response objects.
 * End the request-response cycle.
 * Call the next middleware in the stack.
+
+If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
+
+**Example**
+```Javascript
+var express = require('express')
+var app = express()
+
+var myLogger = function (req, res, next) {
+  console.log('LOGGED')
+  next()
+}
+
+app.use(myLogger)
+
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+})
+
+app.listen(3000)
+```
+
+## Explain, using relevant examples, how to implement sessions and the legal implications of doing this.
+```Javascript
+const cookieSession = require('cookie-session')
+...
+app.use(cookieSession({
+  name: 'session',
+  keys: [/* secret keys */],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
+```
+Using session and cookies without user consent is very illegal due to the new GDPR enforced by the European Union. The law states that any information, which can be linked to a european citizen is personal data. If consent is not an option, the data has to be anonymous.
+
+## Compare the express strategy toward (server side) templating with the one you used with Java on second semester.
+Both JSP and EJS is using tags to embed either Java or JavaScript in HTML code.
+Furthermore both have a "Frontcontroller" to control which modules should be used in the given situation.
+
+## Demonstrate a simple Server Side Rendering example using a technology of your own choice (pug, EJS, ..).
+```Javascript
+var express = require('express');
+var router = express.Router();
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  var model = {
+    title: "Site with a simple JOKE API",
+    username: req.session.username,
+    howToUse: "Get a random joke like this: /api/random",
+    linkToAllJokes: "/api/all",
+    linkToAddJoke: "/api/addJoke"
+  }
+
+  res.render('index', model);
+});
+
+module.exports = router;
+```
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <% if(typeof howToUse != 'undefined') { %>
+    <p><%= howToUse %></p>
+    <a href="<%= linkToAllJokes %>">All jokes</a><br>
+    <a href="<%= linkToAddJoke %>">Add new joke</a>
+    <% } else { %>
+      <p><%= joke %></p>
+      <a href="<%= link %>">Back to main</a>
+   <% } %>
+  </body>
+</html>
+```
