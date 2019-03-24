@@ -301,3 +301,91 @@ Every business should be reassured that in case a key function in their database
 NoSQL models were created because of the modern-day web 2.0 web applications in mind. And because of this, most NoSQL features are focused to meeting these demands ignoring the demands of apps made without these characteristics hence end up offering fewer analytic features for normal web apps.
 
 Any businesses looking to implement NoSQL model needs to do it with caution, remembering the above mentioned pros and cons they posse in contrast to their rational opposites.
+
+## Explain reasons to add a layer like Mongoose, on top on of a schema-less database like MongoDB
+MongoDB by itself is schemaless, so we wanna add a layer like Mongoose, so we're able to handle the data in schemas and documents.
+
+Mongoose is an object modeling tool for MongoDB and Node.js, somehow similar to a ORM tool as we know
+Mongoose provides a straight-forward, schema-based solution to modeling your application data and includes, out of the box:
+* Schemas
+* Built-in type casting
+* Validation (also included with plain MongoDB as of v. 3.2)
+* Query building
+* Business logic hooks (middleware)
+
+## Explain about indexes in MongoDB, how to create them, and demonstrate how you have used them.
+Period 3
+
+## Explain, using your own code examples, how you have used some of MongoDB's "special" indexes like TTL and 2dsphere
+Period 3
+
+## Demonstrate, using a REST-API you have designed, how to perform all CRUD operations on a MongoDB
+```Javascript
+var mongoose = require('mongoose')
+
+const mongoDB = "mongodb+srv://test:test@gettingstarted-zaepr.mongodb.net/mongodemo1?retryWrites=true"
+mongoose.connect(mongoDB, { useNewUrlParser: true, useCreateIndex: true })
+    .then((con) => console.log("Connected to Mongo"))
+    .catch((err) => console.log("UPS DER OPSTOD EN FEJL!: " + err))
+
+setTimeout(() => mongoose.disconnect(() => console.log("Disconnected")), 3000)
+
+var userSchema = new mongoose.Schema({
+    userName: String,
+    email: { type: String, unique: true },
+    created: { type: Date, default: Date.now }
+});
+
+var User = mongoose.model('User', userSchema);
+
+async function addUser(userName, email) {
+    var user = new User({ userName, email })
+    await user.save()
+}
+
+async function findUser(fields, projection) {
+    return await User.find({ userName: /Wonnegut/i }, { _id: 0, userName: 1, email: 1 })
+        .sort({ username: 1 })
+        .collation({ locale: "da" })
+        .limit(2)
+}
+
+async function editUser() {
+    var user = await User.findOneAndUpdate(
+        { userName: "Kurt Wonnegut" },
+        { email: "kurtIsHawt@wonnegut.dk" },
+        { new: true }
+    )
+    console.log(user);
+}
+
+async function deleteUser() {
+    await User.findOneAndDelete({userName: "Hanne Wonnegut"})
+    var user = await User.findOne({userName: "Hanne Wonnegut"})
+}
+```
+
+## Explain the benefits of using Mongoose, and demonstrate, using your own code, an example involving all CRUD operations
+Already explained above
+
+## Explain the “6 Rules of Thumb: Your Guide Through the Rainbow” as to how and when you would use normalization vs. denormalization.
+**One:** favor embedding unless there is a compelling reason not to:
+
+
+**Two:** needing to access an object on its own is a compelling reason not to embed it:
+
+
+**Three:** Arrays should not grow without bound. If there are more than a couple of hundred documents on the “many” side, don’t embed them; if there are more than a few thousand documents on the “many” side, don’t use an array of ObjectID references. High-cardinality arrays are a compelling reason not to embed:
+
+
+**Four:** Don’t be afraid of application-level joins: if you index correctly and use the projection specifier (as shown in part 2) then application-level joins are barely more expensive than server-side joins in a relational database:
+
+
+**Five:** Consider the write/read ratio when denormalizing. A field that will mostly be read and only seldom updated is a good candidate for denormalization: if you denormalize a field that is updated frequently then the extra work of finding and updating all the instances is likely to overwhelm the savings that you get from denormalizing:
+
+
+**Six:** As always with MongoDB, how you model your data depends – entirely – on your particular application’s data access patterns. You want to structure your data to match the ways that your application queries and updates it:
+
+
+
+[Refrence link](https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3)
