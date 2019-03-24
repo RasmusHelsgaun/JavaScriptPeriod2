@@ -377,3 +377,29 @@ Already explained above
 * **Six:** As always with MongoDB, how you model your data depends – entirely – on your particular application’s data access patterns. You want to structure your data to match the ways that your application queries and updates it.
 
 [Refrence link](https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3)
+
+## Demonstrate, using your own code-samples, decisions you have made regarding → normalization vs denormalization
+```Javascript
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+
+var JobSchema = new Schema({
+    type: String,
+    company: String,
+    companyUrl: String
+})
+
+var UserSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    username: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true },
+    job: [JobSchema],
+    created: { type: Date, default: Date.now },
+    lastUpdated: Date
+})
+```
+
+## Explain, using a relevant example, a full JavaScript backend including relevant test cases to test the REST-API (not on the production database)
+Mini project
