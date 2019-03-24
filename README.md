@@ -250,3 +250,34 @@ module.exports = router;
   </body>
 </html>
 ```
+
+## Explain, using relevant examples, your strategy for implementing a REST-API with Node/Express and show how you can "test" all the four CRUD operations programmatically using, for example, the Request package.
+Look at the testing project
+
+## Explain, using relevant examples, about testing JavaScript code, relevant packages (Mocha etc.) and how to test asynchronous code.
+Testing project
+
+## Explain, using relevant examples, different ways to mock out databases, HTTP-request etc.
+You can mock using nock.
+"Look at the testing project"
+
+## Explain, preferably using an example, how you have deployed your node/Express applications, and which of the Express Production best practices you have followed.
+Nginx has been used with logging enabled.
+It is also possible to do with a process manager like PM2
+
+# NoSQL, MongoDB and Mongoose
+## Explain, generally, what is meant by a NoSQL database.
+A NoSQL (originally referring to "non SQL" or "non relational") database provides a mechanism for storage and retrieval of data that is modeled in means other than the tabular relations used in relational databases. ... NoSQL databases are increasingly used in big data and real-time web applications.
+
+## Explain Pros & Cons in using a NoSQL database like MongoDB as your data store, compared to a traditional Relational SQL Database like MySQL.
+1. Flexible Scalability
+Unlike rational database management model that is difficult to scale out when it come to commodity clusters NoSQL models make use of new nodes which makes them transparent for expansion. The model is designed to be used even with low cost hardwares. In this current world where outward scalability is replacing upwards scalability, NoSQL models are the better option.
+
+2. Stores Massive Amounts Of Data
+Given the fact that transaction rates are rising due to recognition, huge volumes of data need to be stored. While rational models have grown to meet this need it is illogical to use such models to store such large volumes of data. However these volumes can easily be handled by NoSQL models
+
+3. Database Maintenance
+The best rational models need the service of an expert to design, install and maintain. However, NoSQL models need much less expert management as it already has auto repair and data distribution capabilities, fewer administration and turning requirements as well as simplified data designs.
+
+4. Economical
+Rational models require expensive proprietary servers and storage systems whereas NoSQL models are easy and cheap to install. This means that more data can be processed and stored at a very minimal cost.
