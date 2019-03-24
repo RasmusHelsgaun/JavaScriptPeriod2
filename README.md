@@ -400,6 +400,6 @@ var UserSchema = new Schema({
     lastUpdated: Date
 })
 ```
-
+https://techdifferences.com/difference-between-normalization-and-denormalization.html
 ## Explain, using a relevant example, a full JavaScript backend including relevant test cases to test the REST-API (not on the production database)
 Mini project
