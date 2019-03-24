@@ -379,6 +379,8 @@ Already explained above
 [Refrence link](https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3)
 
 ## Demonstrate, using your own code-samples, decisions you have made regarding → normalization vs denormalization
+https://techdifferences.com/difference-between-normalization-and-denormalization.html
+
 ```Javascript
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
@@ -400,6 +402,6 @@ var UserSchema = new Schema({
     lastUpdated: Date
 })
 ```
-https://techdifferences.com/difference-between-normalization-and-denormalization.html
+
 ## Explain, using a relevant example, a full JavaScript backend including relevant test cases to test the REST-API (not on the production database)
 Mini project
