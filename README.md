@@ -36,5 +36,6 @@ Now you can run the node project with npm start or node "name of node file", but
 
   For this you can use a process manager like PM2, forever and StrongLoop process manager
 * **Ensure that you Node-process restarts after a server (Ubuntu) restart**
+
 * **Ensure that you can take advantage of a multi-core system**
 * **Ensure that you can run “many” node-applications on a single droplet on the same port (80)**
