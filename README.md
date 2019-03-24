@@ -31,7 +31,7 @@ To deploy the application, you would first have to download Node.js, and have a 
 If you download the project from e.g GitHub, you have to remember to run npm install to get all of the node modules.
 Now you can run the node project with npm start or node "name of node file", but if it crashes you have to restart everything manually.
 * **Ensure that you Node-process restarts after a (potential) exception that closed the application**
-For this you can use a process manager like PM2, forever and StrongLoop process manager
+  For this you can use a process manager like PM2, forever and StrongLoop process manager
 * **Ensure that you Node-process restarts after a server (Ubuntu) restart**
 * **Ensure that you can take advantage of a multi-core system**
 * **Ensure that you can run “many” node-applications on a single droplet on the same port (80)**
