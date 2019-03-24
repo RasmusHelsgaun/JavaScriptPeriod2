@@ -34,8 +34,13 @@ If you download the project from e.g GitHub, you have to remember to run npm ins
 Now you can run the node project with npm start or node "name of node file", but if it crashes you have to restart everything manually.
 * **Ensure that you Node-process restarts after a (potential) exception that closed the application**
 
-  For this you can use a process manager like PM2, forever and StrongLoop process manager
+For this you can use a process manager like PM2, forever and StrongLoop process manager
 * **Ensure that you Node-process restarts after a server (Ubuntu) restart**
 
+The process manager can also handle this part
 * **Ensure that you can take advantage of a multi-core system**
+
+A process manager can also take care of this with the Cluster module (PM2)
 * **Ensure that you can run “many” node-applications on a single droplet on the same port (80)**
+
+A reverse proxy like Nginx can be used for this.
