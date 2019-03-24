@@ -11,6 +11,7 @@ Furthermore it's easy/fast to setup, as everything is made the same place, and c
 * If you want to go for a NoSQL database, it is also pretty simple to setup using Node.js / Express
 * Fast at executing non-heavy CPU tasks with asynchronous code and the non blocking thread
 **Cons**
+
 * JS is single threaded even, which means Java is better at executing very CPU heavy and long tasks.
 * It is easier to find errors in Java due to e.g the types, even though you could implement typescript in JS.
 * Asynchronous code can to some extend be annoying to implement.
