@@ -42,4 +42,48 @@ Now you can run the node project with npm start or node "name of node file", but
 
     A process manager can also take care of this with the Cluster module (PM2)
 * **Ensure that you can run “many” node-applications on a single droplet on the same port (80)**
+
     A reverse proxy like Nginx can be used for this.
+
+## Explain the difference between “Debug outputs” and application logging. What’s wrong with console.log(..) statements in our backend-code.
+Console.log() blocks the thread while writing to the console, whereas debugging statements do not and will only show in the console in a development environment. Logging is text written to files, to see what happens in the application over time.
+This way it is way easier for the developers to track errors or possible security flaws.
+
+## Demonstrate a system using application logging and “coloured” debug statements.
+```javascript
+const winston = require('winston')
+
+//Remember: npm install winston 
+
+//This is inspired by this article: http://tostring.it/2014/06/23/advanced-logging-with-nodejs/
+//but slightly changed and updated to use the API of the newest version of Winston
+
+var logger = winston.createLogger({
+  transports: [
+      new winston.transports.File({
+          level: 'info',
+          filename: './logs/all-logs.log',
+          handleExceptions: true,
+          json: true,
+          maxsize: 5242880, //5MB
+          maxFiles: 5,
+          colorize: false
+      }),
+      new winston.transports.Console({
+          level: 'debug',
+          handleExceptions: true,
+          json: false,
+          colorize: true
+      })
+  ],
+  exitOnError: false
+})
+
+logger.stream = {
+  write: function(message, encoding){
+      logger.info(message);
+  }
+};
+
+module.exports=logger;
+```
